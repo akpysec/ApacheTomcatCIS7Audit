@@ -262,18 +262,18 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "6.1 Setup Client-cert Authentication (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "Review the Connector configuration in server.xml and ensure the clientAuth parameter is set to true." >> SEC_AUDIT_APACHE_TOMCAT7.txt
-echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "6.2 Ensure SSLEnabled is set to True for Sensitive Connectors (Not Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "Review server.xml and ensure all Connectors sending or receiving sensitive information have the SSLEnabled attribute set to true." >> SEC_AUDIT_APACHE_TOMCAT7.txt
-echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "6.3 Ensure scheme is set accurately (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "Review server.xml to ensure the Connector’s scheme attribute is set to http for Connectors operating over HTTP." >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "Also ensure the Connector’s scheme attribute is set to https for Connectors operating over HTTPS." >> SEC_AUDIT_APACHE_TOMCAT7.txt
-echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "6.4 Ensure secure is set to true only for SSL-enabled Connectors (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "Review server.xml and ensure the secure attribute is set to true for those Connectors having SSLEnabled set to true." >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "Also, ensure the secure attribute set to false for those Connectors having SSLEnabled set to false." >> SEC_AUDIT_APACHE_TOMCAT7.txt
-echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "6.5 Ensure SSL Protocol is set to TLS for Secure Connectors (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "The TLS protocol does not contain weaknesses that affect other secure transport protocols, such as SSLv1 or SSLv2." >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "Therefore, TLS is leveraged to protect the confidentiality and integrity of data while in transit." >> SEC_AUDIT_APACHE_TOMCAT7.txt
