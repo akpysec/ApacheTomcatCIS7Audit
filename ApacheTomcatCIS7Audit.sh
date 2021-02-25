@@ -1,3 +1,10 @@
+
+echo "Enter WEB-APP Name";
+read appname;
+echo "Enter LOG location";
+read loglocation;
+
+
 echo "**************************************************************************************************************************" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "1 Remove Extraneous Resources" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "**************************************************************************************************************************" >> SEC_AUDIT_APACHE_TOMCAT7.txt
@@ -294,42 +301,46 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "7.2 Specify file handler in logging.properties files (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-echo "Manual Check" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+grep handlers $CATALINA_BASE\webapps\/$appname\WEB-INF\classes\logging.properties | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+grep handlers $CATALINA_BASE\conf\logging.properties | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "7.3 Ensure className is set correctly in context.xml (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-echo "Manual Check" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+grep org.apache.catalina.valves.AccessLogValve $CATALINA_BASE\webapps\/$appname\META-INF\context.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "7.4 Ensure directory in context.xml is a secure location (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+grep directory context.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+ls –ld $loglocation
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "7.5 Ensure pattern in context.xml is correct (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+grep pattern context.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "7.6 Ensure directory in logging.properties is a secure location (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+grep directory logging.properties | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+ls –ld $loglocation | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "7.7 Configure log file size limit (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "Validate the max file limit is not greater than the size of the partition where the log files are stored." >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "Check: directory logging.properties - java.util.logging.FileHandler.limit=10000" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -342,7 +353,9 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "8.1 Restrict runtime access to sensitive packages (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "Check for: package.access = sun.,org.apache.catalina.,org.apache.coyote.,org.apache.tomcat.,org.apache.jasper" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+cat $CATALINA_BASE/conf/catalina.properties | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -355,21 +368,27 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "9.1 Starting Tomcat with Security Manager (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "Check that Tomcat started with '-security' option" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+cat /etc/init.d | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "9.2 Disabling auto deployment of applications (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "Ensure autoDeploy is set to false" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+grep "autoDeploy" $CATALINA_HOME/conf/server.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "9.3 Disable deploy on startup of applications (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "Ensure deployOnStartup is set to false" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+grep "deployOnStartup" $CATALINA_HOME/conf/server.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -382,136 +401,164 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "10.1 Ensure Web content directory is on a separate partition from the Tomcat system files (Not Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+df $CATALINA_HOME/webapps | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+df $CATALINA_HOME/ | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "10.2 Restrict access to the web administration (Not Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
-echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "Check that RemoteAddrValve option is uncommented and configured to only allow access to systems required to connect" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+cat $CATALINA_HOME/conf/server.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-
-
-echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-echo "10.3 Restrict manager application (Not Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "10.4 Force SSL when accessing the manager application (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "Check for the <transport-guarantee> attribute set to CONFIDENTIAL" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+grep transport-guarantee $CATALINA_HOME/webapps/manager/WEB-INF/web.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "10.5 Rename the manager application (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+cat $CATALINA_HOME/conf/Catalina/localhost/manager.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found - PASS' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+cat $CATALINA_HOME/webapps/host-manager/manager.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found - PASS' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+cat $CATALINA_HOME/webapps/manager | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found - PASS' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+cat $CATALINA_HOME/webapps/manager | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found - PASS' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "10.6-9 Checks in catalina.sh" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "10.6 Enable strict servlet Compliance (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
-echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "Check for STRICT_SERVLET_COMPLIANCE parameter is set to true" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-
-
-echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "10.7 Turn off session facade recycling (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
-echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "Check for RECYCLE_FACADES parameter is set to true" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-
-
-echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "10.8 Do not allow additional path delimiters (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
-echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "Check for ALLOW_BACKSLASH and ALLOW_ENCODED_SLASH parameters are set to false" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-
-
-echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "10.9 Do not allow custom header status messages (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "Check for USE_CUSTOM_STATUS_MSG_IN_HEADER parameter is set to false" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+cat $CATALINA_HOME\bin\catalina.sh | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "10.10 Configure connectionTimeout (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "Check for connectionTimeout='60000'" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+grep connectionTimeout $CATALINA_HOME/conf/server.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "10.11 Configure maxHttpHeaderSize (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "Check for maxHttpHeaderSize is set to 8192" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+grep maxHttpHeaderSize $CATALINA_HOME/conf/server.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "10.12 Force SSL for all applications (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "Check for <transport-guarantee>CONFIDENTIAL</transport-guarantee> attribute" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+grep transport-guarantee $CATALINA_HOME/conf/web.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "10.13 Do not allow symbolic linking (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+find . -name context.xml | xargs grep "allowLinking" | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "10.14 Do not run applications as privileged (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+find . -name context.xml | xargs grep "privileged" | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "10.15 Do not allow cross context requests (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+find . -name context.xml | xargs grep "crossContext" | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "10.16 Do not resolve hosts on logging valves (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+grep enableLookups $CATALINA_HOME/conf/server.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "10.17 Enable memory leak listener (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "Check for org.apache.catalina.core.JreMemoryLeakPreventionListener, uncomment if diabled"
+cat $CATALINA_HOME/conf/server.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "10.18 Setting Security Liftcycle Listener (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "Check at <Listener className='org.apache.catalina.security.SecurityListener' checkedOsUsers='alex,bob' minimumUmask='0007' />"
+cat $CATALINA_HOME/conf/server.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "10.19 use the logEffectiveWebXml and metadata-complete settings for deploying applications in production (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-COMMAND | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "Determine if the metadata-complete and logEffectiveWebXml property is set to true" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+cat $CATALINA_BASE\webapps\/$appname\WEB-INF\web.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
+echo "**************************************************************************************************************************" >> SEC_AUDIT_RHEL7.txt 
+echo "11 Custom Twerks" >> SEC_AUDIT_RHEL7.txt
+echo "**************************************************************************************************************************" >> SEC_AUDIT_RHEL7.txt 
 
+echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "11.1 Dump all vhosts and their config files" >> SEC_AUDIT_RHEL7.txt
+echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+apachectl -D DUMP_VHOSTS | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
+echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "11.1 Show all loaded Apache modules" >> SEC_AUDIT_RHEL7.txt
+echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+apachectl -D DUMP_MODULES | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+
+echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "11.1 Show main configuration directives (without vhosts)" >> SEC_AUDIT_RHEL7.txt
+echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+apachectl -D DUMP_RUN_CFG | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+
+echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "11.1 Summary: show everything at once" >> SEC_AUDIT_RHEL7.txt
+echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+apachectl -S; apachectl -M | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
