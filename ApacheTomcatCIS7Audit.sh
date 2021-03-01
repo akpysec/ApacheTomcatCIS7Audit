@@ -1,3 +1,6 @@
+########## NOT FINISHED ##############
+
+dir=$(pwd)
 echo "Enter WEB-APP Name";
 read appname;
 echo "Enter LOG location";
