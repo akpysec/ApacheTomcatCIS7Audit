@@ -1,9 +1,11 @@
+# Set Variaables
+# Copy & Paste to the Terminal, this is not a script, just bunch of commands...
 
 echo "START" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
 
 dir=$(pwd)
-appname="SomeName"
-loglocation="SomePath"
+appname="AppName"
+loglocation="LogPath"
 
 
 echo "**************************************************************************************************************************" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
