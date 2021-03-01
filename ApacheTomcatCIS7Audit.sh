@@ -1,4 +1,3 @@
-
 echo "Enter WEB-APP Name";
 read appname;
 echo "Enter LOG location";
@@ -13,16 +12,16 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "1.1 Remove extraneous files and directories (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-ls -l $CATALINA_HOME/webapps/js-examplesexamples \
-$CATALINA_HOME/webapps/servlet-example \
-$CATALINA_HOME/webapps/webdav \
-$CATALINA_HOME/webapps/tomcat-docs \
-$CATALINA_HOME/webapps/balancer \
-$CATALINA_HOME/webapps/ROOT/admin \
-$CATALINA_HOME/webapps/examples \
-$CATALINA_HOME/server/webapps/host-manager \
-$CATALINA_HOME/server/webapps/manager \
-$CATALINA_HOME/conf/Catalina/localhost/host-manager.xml \
+ls -l $CATALINA_HOME/webapps/js-examplesexamples /
+$CATALINA_HOME/webapps/servlet-example /
+$CATALINA_HOME/webapps/webdav /
+$CATALINA_HOME/webapps/tomcat-docs /
+$CATALINA_HOME/webapps/balancer /
+$CATALINA_HOME/webapps/ROOT/admin /
+$CATALINA_HOME/webapps/examples /
+$CATALINA_HOME/server/webapps/host-manager /
+$CATALINA_HOME/server/webapps/manager /
+$CATALINA_HOME/conf/Catalina/localhost/host-manager.xml /
 $CATALINA_HOME/conf/Catalina/localhost/manager.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No extraneous files & directories found - PASS' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
@@ -107,7 +106,7 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "3.2 Disable the Shutdown port (Not Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 cd $CATALINA_HOME/conf/
-grep '<Server[[:space:]]\+[^>]*port[[:space:]]*=[[:space:]]*"-1"' server.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+grep '<Server[[:space:]]/+[^>]*port[[:space:]]*=[[:space:]]*"-1"' server.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -121,7 +120,7 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "4.1 Restrict access to $CATALINA_HOME (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 cd $CATALINA_HOME
-find . -follow -maxdepth 0 \( -perm /o+rwx,g=w -o ! -user tomcat_admin -o ! -group tomcat \) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+find . -follow -maxdepth 0 /( -perm /o+rwx,g=w -o ! -user tomcat_admin -o ! -group tomcat /) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -129,7 +128,7 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "4.2 Restrict access to $CATALINA_BASE (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 cd $CATALINA_BASE
-find . -follow -maxdepth 0 \( -perm /o+rwx,g=w -o ! -user tomcat_admin -o ! -group tomcat \) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+find . -follow -maxdepth 0 /( -perm /o+rwx,g=w -o ! -user tomcat_admin -o ! -group tomcat /) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -137,7 +136,7 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "4.3 Restrict access to Tomcat configuration directory (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 cd $CATALINA_HOME/conf
-find . -maxdepth 0 \( -perm /o+rwx,g=w -o ! -user tomcat_admin -o ! -group tomcat \) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+find . -maxdepth 0 /( -perm /o+rwx,g=w -o ! -user tomcat_admin -o ! -group tomcat /) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -145,7 +144,7 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "4.4 Restrict access to Tomcat logs directory (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 cd $CATALINA_HOME
-find logs -follow -maxdepth 0 \( -perm /o+rwx -o ! -user tomcat_admin -o ! -group tomcat \) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+find logs -follow -maxdepth 0 /( -perm /o+rwx -o ! -user tomcat_admin -o ! -group tomcat /) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -153,7 +152,7 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "4.5 Restrict access to Tomcat temp directory (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 cd $CATALINA_HOME
-find temp -follow -maxdepth 0 \( -perm /o+rwx -o ! -user tomcat_admin -o ! -group tomcat \) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+find temp -follow -maxdepth 0 /( -perm /o+rwx -o ! -user tomcat_admin -o ! -group tomcat /) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -161,7 +160,7 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "4.6 Restrict access to Tomcat binaries directory (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 cd $CATALINA_HOME
-find bin -follow -maxdepth 0 \( -perm /o+rwx,g=w -o ! -user tomcat_admin -o ! -group tomcat \) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+find bin -follow -maxdepth 0 /( -perm /o+rwx,g=w -o ! -user tomcat_admin -o ! -group tomcat /) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -169,7 +168,7 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "4.7 Restrict access to Tomcat web application directory (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 cd $CATALINA_HOME
-find webapps -follow -maxdepth 0 \( -perm /o+rwx,g=w -o ! -user tomcat_admin -o ! -group tomcat \) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+find webapps -follow -maxdepth 0 /( -perm /o+rwx,g=w -o ! -user tomcat_admin -o ! -group tomcat /) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -177,7 +176,7 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "4.8 Restrict access to Tomcat catalina.policy (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 cd $CATALINA_HOME/conf/
-find catalina.policy -follow -maxdepth 0 \( -perm /o+rwx -o ! -user tomcat_admin -o ! -group tomcat \) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+find catalina.policy -follow -maxdepth 0 /( -perm /o+rwx -o ! -user tomcat_admin -o ! -group tomcat /) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -185,7 +184,7 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "4.9 Restrict access to Tomcat catalina.properties (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 cd $CATALINA_HOME/conf/
-find catalina.properties -follow -maxdepth 0 \( -perm /o+rwx,g=w -o ! -user tomcat_admin -o ! -group tomcat \) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+find catalina.properties -follow -maxdepth 0 /( -perm /o+rwx,g=w -o ! -user tomcat_admin -o ! -group tomcat /) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -193,7 +192,7 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "4.10 Restrict access to Tomcat context.xml (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 cd $CATALINA_HOME/conf/
-find context.xml -follow -maxdepth 0 \( -perm /o+rwx,g=w -o ! -user tomcat_admin -o ! -group tomcat \) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+find context.xml -follow -maxdepth 0 /( -perm /o+rwx,g=w -o ! -user tomcat_admin -o ! -group tomcat /) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -201,7 +200,7 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "4.11 Restrict access to Tomcat logging.properties (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 cd $CATALINA_HOME/conf/
-find logging.properties -follow -maxdepth 0 \( -perm /o+rwx,g=w -o ! -user tomcat_admin -o ! -group tomcat \) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+find logging.properties -follow -maxdepth 0 /( -perm /o+rwx,g=w -o ! -user tomcat_admin -o ! -group tomcat /) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -209,7 +208,7 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "4.12 Restrict access to Tomcat server.xml (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 cd $CATALINA_HOME/conf/
-find server.xml -follow -maxdepth 0 \( -perm /o+rwx,g=w -o ! -user tomcat_admin -o ! -group tomcat \) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+find server.xml -follow -maxdepth 0 /( -perm /o+rwx,g=w -o ! -user tomcat_admin -o ! -group tomcat /) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -217,7 +216,7 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "4.13 Restrict access to Tomcat tomcat-users.xml (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 cd $CATALINA_HOME/conf/
-find tomcat-users.xml -follow -maxdepth 0 \( -perm /o+rwx,g=w -o ! -user tomcat_admin -o ! -group tomcat \) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+find tomcat-users.xml -follow -maxdepth 0 /( -perm /o+rwx,g=w -o ! -user tomcat_admin -o ! -group tomcat /) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -225,7 +224,7 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "4.14 Restrict access to Tomcat web.xml (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 cd $CATALINA_HOME/conf/
-find web.xml -follow -maxdepth 0 \( -perm /o+rwx,g=w -o ! -user tomcat_admin -o ! -group tomcat \) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+find web.xml -follow -maxdepth 0 /( -perm /o+rwx,g=w -o ! -user tomcat_admin -o ! -group tomcat /) -ls | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -301,15 +300,15 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "7.2 Specify file handler in logging.properties files (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-grep handlers $CATALINA_BASE\webapps\/$appname\WEB-INF\classes\logging.properties | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
-grep handlers $CATALINA_BASE\conf\logging.properties | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+grep handlers $CATALINA_BASE/webapps/$appname/WEB-INF/classes/logging.properties | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+grep handlers $CATALINA_BASE/conf/logging.properties | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "7.3 Ensure className is set correctly in context.xml (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-grep org.apache.catalina.valves.AccessLogValve $CATALINA_BASE\webapps\/$appname\META-INF\context.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+grep org.apache.catalina.valves.AccessLogValve $CATALINA_BASE/webapps/$appname/META-INF/context.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -450,7 +449,7 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "10.9 Do not allow custom header status messages (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "Check for USE_CUSTOM_STATUS_MSG_IN_HEADER parameter is set to false" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-cat $CATALINA_HOME\bin\catalina.sh | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+cat $CATALINA_HOME/bin/catalina.sh | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -526,7 +525,7 @@ echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "10.19 use the logEffectiveWebXml and metadata-complete settings for deploying applications in production (Scored)" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "Determine if the metadata-complete and logEffectiveWebXml property is set to true" >> SEC_AUDIT_APACHE_TOMCAT7.txt
-cat $CATALINA_BASE\webapps\/$appname\WEB-INF\web.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
+cat $CATALINA_BASE/webapps/$appname/WEB-INF/web.xml | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -562,3 +561,4 @@ apachectl -S; apachectl -M | grep . >> SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> SEC_AUDIT_APACHE_TOMCAT7.txt
 
+echo "FINISHED"
