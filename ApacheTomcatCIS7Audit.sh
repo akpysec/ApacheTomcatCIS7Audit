@@ -1,4 +1,6 @@
 
+echo "START" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
+
 dir=$(pwd)
 appname="SomeName"
 loglocation="SomePath"
@@ -71,7 +73,7 @@ cd $dir
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "2.4 Disable X-Powered-By HTTP Header and Rename the Server Value for all Connectors (Scored)" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
-echo "Manual Check" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "Check in server.xml file that attribute is xpoweredBy='false'" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -85,7 +87,7 @@ echo "" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
 
 echo "--------------------------------------------------------------------------------------------------------------------------" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "2.6 Turn off TRACE (Scored)" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
-echo "Manual Check" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
+echo "Check in server.xml file that attribute is allowTrace='false'" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
 
@@ -606,4 +608,13 @@ apachectl -S; apachectl -M | grep . >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt || echo
 echo "--------------------------------------------------------------------------------------------------------------------------" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
 
-echo "FINISHED!"
+
+# Un-Setting Variables:
+unset dir
+unset appname
+unset loglocation
+
+echo "END" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
+
+echo "----------------FINISH"----------------"
+
