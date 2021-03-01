@@ -616,5 +616,5 @@ unset loglocation
 
 echo "END" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
 
-echo "----------------FINISH"----------------"
+echo "----------------FINISH----------------"
 
