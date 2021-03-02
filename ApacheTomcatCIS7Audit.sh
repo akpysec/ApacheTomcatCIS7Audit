@@ -1,4 +1,4 @@
-# Set Variaables
+# Set Variables
 # Copy & Paste to the Terminal, this is not a script, just bunch of commands...
 
 echo "START" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
