@@ -1,3 +1,4 @@
+# UN-FINISHED SCRIPT, NOT WORKING PROPARLY
 # Set Variables
 # Copy & Paste to the Terminal, this is not a script, just bunch of commands...
 
@@ -48,7 +49,7 @@ echo "--------------------------------------------------------------------------
 echo "2.1 Alter the Advertised server.info String (Scored)" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
 cd $CATALINA_HOME/lib
-jar xf catalina.jar org/apache/catalina/util/ServerInfo.properties  | grep . >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
+jar xf catalina.jar
 grep server.info $CATALINA_HOME/lib/org/apache/catalina/util/ServerInfo.properties  | grep . >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
@@ -57,7 +58,7 @@ echo "" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "2.2 Alter the Advertised server.number String (Scored)" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
 cd $CATALINA_HOME/lib
-jar xf catalina.jar org/apache/catalina/util/ServerInfo.properties | grep . >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
+jar xf catalina.jar
 grep server.number org/apache/catalina/util/ServerInfo.properties | grep . >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt || echo 'No Value found' >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "--------------------------------------------------------------------------------------------------------------------------" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
 echo "" >> $dir/SEC_AUDIT_APACHE_TOMCAT7.txt
